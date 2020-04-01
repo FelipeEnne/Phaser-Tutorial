@@ -49,4 +49,8 @@ Folow the Phaser <a href="http://phaser.io/tutorials/making-your-first-phaser-3-
 ### Part 10 - Bouncing Bombs
 
 
-For this game you need the 
+Run this game: 
+> node src/server.js
+Go to the http://localhost:3000/
+
+
