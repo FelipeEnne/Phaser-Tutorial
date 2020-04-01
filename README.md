@@ -8,3 +8,8 @@ Folow the Phaser <a href="http://phaser.io/tutorials/making-your-first-phaser-3-
 * Getting Started Guide
     node.js - http-server
     setup
+
+### Part 2 - Loading Assets
+
+* Preload
+* Create
