@@ -42,7 +42,11 @@ Folow the Phaser <a href="http://phaser.io/tutorials/making-your-first-phaser-3-
 
 *  stars = this.physics.add.group({...
 
-
 ### Part 9 - A score to settle
 
 * score
+
+### Part 10 - Bouncing Bombs
+
+
+For this game you need the 
