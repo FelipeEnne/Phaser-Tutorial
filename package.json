@@ -9,7 +9,7 @@
     "build": "webpack",
     "watch": "webpack --watch",
     "npx-fix": "npx eslint src/  --fix",
-    "server": "node server.js"
+    "server": "node src/server.js"
   },
   "repository": {
     "type": "git",
