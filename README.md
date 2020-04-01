@@ -31,3 +31,18 @@ Folow the Phaser <a href="http://phaser.io/tutorials/making-your-first-phaser-3-
 
 * player.body.setGravityY(300)
 * this.physics.add.collider(player, platforms);
+
+
+### Part 7 - Controlling the player with the keyboard
+
+* Update
+* cursors = this.input.keyboard.createCursorKeys();
+
+### Part 8 - Stardust
+
+*  stars = this.physics.add.group({...
+
+
+### Part 9 - A score to settle
+
+* score
