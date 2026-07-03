@@ -4,11 +4,10 @@
   "description": "Folow the Phaser <a href=\"http://phaser.io/tutorials/making-your-first-phaser-3-game\"> tutorial</a>",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "install-web": "npm install --save-dev webpack",
-    "build": "webpack",
-    "watch": "webpack --watch",
-    "npx-fix": "npx eslint src/  --fix",
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
     "server": "node src/server.js"
   },
   "repository": {
@@ -25,15 +24,10 @@
     "url": "https://github.com/FelipeEnne/Phaser-Tutorial/issues"
   },
   "homepage": "https://github.com/FelipeEnne/Phaser-Tutorial#readme",
-  "dependencies": {
-    "express": "^4.17.1",
-    "phaser": "^3.22.0",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
-  },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2"
+    "@eslint/js": "^10.0.0",
+    "esbuild": "^0.28.1",
+    "eslint": "^10.0.0",
+    "globals": "^17.0.0"
   }
 }

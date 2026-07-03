@@ -15,7 +15,6 @@ const mime = {
   js: 'application/javascript',
 };
 
-// eslint-disable-next-line consistent-return
 const server = http.createServer((req, res) => {
   const reqpath = req.url.toString().split('?')[0];
   if (req.method !== 'GET') {

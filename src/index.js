@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 function preload() {
   this.load.image('sky', 'assets/img/sky.png');
   this.load.image('ground', 'assets/img/platform.png');
@@ -17,6 +16,7 @@ let cursors;
 let score = 0;
 let scoreText;
 let bombs;
+let gameOver = false;
 
 function create() {
   this.add.image(400, 300, 'sky');
@@ -71,7 +71,6 @@ function create() {
 
   this.physics.add.collider(stars, platforms);
 
-  // eslint-disable-next-line no-shadow
   function collectStar(player, star) {
     star.disableBody(true, true);
 
@@ -100,7 +99,6 @@ function create() {
 
   this.physics.add.collider(bombs, platforms);
 
-  // eslint-disable-next-line no-shadow
   function hitBomb(player) {
     this.physics.pause();
 
@@ -115,6 +113,10 @@ function create() {
 }
 
 function update() {
+  if (gameOver) {
+    return;
+  }
+
   if (cursors.left.isDown) {
     player.setVelocityX(-160);
 

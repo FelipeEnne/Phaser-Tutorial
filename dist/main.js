@@ -1,1 +1,125 @@
-!function(e){var t={};function s(r){if(t[r])return t[r].exports;var a=t[r]={i:r,l:!1,exports:{}};return e[r].call(a.exports,a,a.exports,s),a.l=!0,a.exports}s.m=e,s.c=t,s.d=function(e,t,r){s.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},s.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},s.t=function(e,t){if(1&t&&(e=s(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(s.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var a in e)s.d(r,a,function(t){return e[t]}.bind(null,a));return r},s.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return s.d(t,"a",t),t},s.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},s.p="",s(s.s=0)}([function(e,t){let s,r,a,i,n,o,d=0;const u={type:Phaser.AUTO,width:800,height:600,physics:{default:"arcade",arcade:{gravity:{y:300},debug:!1}},scene:{preload:function(){this.load.image("sky","assets/img/sky.png"),this.load.image("ground","assets/img/platform.png"),this.load.image("star","assets/img/star.png"),this.load.image("bomb","assets/img/bomb.png"),this.load.spritesheet("dude","assets/img/dude.png",{frameWidth:32,frameHeight:48})},create:function(){this.add.image(400,300,"sky"),a=this.physics.add.staticGroup(),a.create(400,568,"ground").setScale(2).refreshBody(),a.create(600,400,"ground"),a.create(50,250,"ground"),a.create(750,220,"ground"),s=this.physics.add.sprite(100,450,"dude"),s.setBounce(.2),s.setCollideWorldBounds(!0),this.anims.create({key:"left",frames:this.anims.generateFrameNumbers("dude",{start:0,end:3}),frameRate:10,repeat:-1}),this.anims.create({key:"turn",frames:[{key:"dude",frame:4}],frameRate:20}),this.anims.create({key:"right",frames:this.anims.generateFrameNumbers("dude",{start:5,end:8}),frameRate:10,repeat:-1}),this.physics.add.collider(s,a),i=this.input.keyboard.createCursorKeys(),r=this.physics.add.group({key:"star",repeat:11,setXY:{x:12,y:0,stepX:70}}),r.children.iterate(e=>{e.setBounceY(Phaser.Math.FloatBetween(.4,.8))}),this.physics.add.collider(r,a),this.physics.add.overlap(s,r,(function(e,t){if(t.disableBody(!0,!0),d+=10,n.setText("Score: "+d),0===r.countActive(!0)){r.children.iterate(e=>{e.enableBody(!0,e.x,0,!0,!0)});let t=e.x<400?Phaser.Math.Between(400,800):Phaser.Math.Between(0,400),s=o.create(t,16,"bomb");s.setBounce(1),s.setCollideWorldBounds(!0),s.setVelocity(Phaser.Math.Between(-200,200),20)}}),null,this),n=this.add.text(16,16,"score: 0",{fontSize:"32px",fill:"#000"}),o=this.physics.add.group(),this.physics.add.collider(o,a),this.physics.add.collider(s,o,(function(e,t){this.physics.pause(),e.setTint(16711680),e.anims.play("turn"),gameOver=!0}),null,this)},update:function(){i.left.isDown?(s.setVelocityX(-160),s.anims.play("left",!0)):i.right.isDown?(s.setVelocityX(160),s.anims.play("right",!0)):(s.setVelocityX(0),s.anims.play("turn")),i.up.isDown&&s.body.touching.down&&s.setVelocityY(-330)}}};new Phaser.Game(u)}]);
+(() => {
+  // src/index.js
+  function preload() {
+    this.load.image("sky", "assets/img/sky.png");
+    this.load.image("ground", "assets/img/platform.png");
+    this.load.image("star", "assets/img/star.png");
+    this.load.image("bomb", "assets/img/bomb.png");
+    this.load.spritesheet("dude", "assets/img/dude.png", {
+      frameWidth: 32,
+      frameHeight: 48
+    });
+  }
+  var player;
+  var stars;
+  var platforms;
+  var cursors;
+  var score = 0;
+  var scoreText;
+  var bombs;
+  var gameOver = false;
+  function create() {
+    this.add.image(400, 300, "sky");
+    platforms = this.physics.add.staticGroup();
+    platforms.create(400, 568, "ground").setScale(2).refreshBody();
+    platforms.create(600, 400, "ground");
+    platforms.create(50, 250, "ground");
+    platforms.create(750, 220, "ground");
+    player = this.physics.add.sprite(100, 450, "dude");
+    player.setBounce(0.2);
+    player.setCollideWorldBounds(true);
+    this.anims.create({
+      key: "left",
+      frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "turn",
+      frames: [{ key: "dude", frame: 4 }],
+      frameRate: 20
+    });
+    this.anims.create({
+      key: "right",
+      frames: this.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.physics.add.collider(player, platforms);
+    cursors = this.input.keyboard.createCursorKeys();
+    stars = this.physics.add.group({
+      key: "star",
+      repeat: 11,
+      setXY: { x: 12, y: 0, stepX: 70 }
+    });
+    stars.children.iterate((child) => {
+      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    });
+    this.physics.add.collider(stars, platforms);
+    function collectStar(player2, star) {
+      star.disableBody(true, true);
+      score += 10;
+      scoreText.setText(`Score: ${score}`);
+      if (stars.countActive(true) === 0) {
+        stars.children.iterate((child) => {
+          child.enableBody(true, child.x, 0, true, true);
+        });
+        const x = player2.x < 400 ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+        const bomb = bombs.create(x, 16, "bomb");
+        bomb.setBounce(1);
+        bomb.setCollideWorldBounds(true);
+        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+      }
+    }
+    this.physics.add.overlap(player, stars, collectStar, null, this);
+    scoreText = this.add.text(16, 16, "score: 0", { fontSize: "32px", fill: "#000" });
+    bombs = this.physics.add.group();
+    this.physics.add.collider(bombs, platforms);
+    function hitBomb(player2) {
+      this.physics.pause();
+      player2.setTint(16711680);
+      player2.anims.play("turn");
+      gameOver = true;
+    }
+    this.physics.add.collider(player, bombs, hitBomb, null, this);
+  }
+  function update() {
+    if (gameOver) {
+      return;
+    }
+    if (cursors.left.isDown) {
+      player.setVelocityX(-160);
+      player.anims.play("left", true);
+    } else if (cursors.right.isDown) {
+      player.setVelocityX(160);
+      player.anims.play("right", true);
+    } else {
+      player.setVelocityX(0);
+      player.anims.play("turn");
+    }
+    if (cursors.up.isDown && player.body.touching.down) {
+      player.setVelocityY(-330);
+    }
+  }
+  var config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    physics: {
+      default: "arcade",
+      arcade: {
+        gravity: {
+          y: 300
+        },
+        debug: false
+      }
+    },
+    scene: {
+      preload,
+      create,
+      update
+    }
+  };
+  var game = new Phaser.Game(config);
+})();
+//# sourceMappingURL=main.js.map
